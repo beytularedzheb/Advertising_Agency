@@ -12,13 +12,13 @@ import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 
-public class Text extends ResourceBundle {
+public class DbText extends ResourceBundle {
 
-    protected static final String BUNDLE_NAME = "adagency.i18n.text";
+    protected static final String BUNDLE_NAME = "adagency.i18n.dbtext";
     protected static final String BUNDLE_EXTENSION = "properties";
     protected static final Control UTF8_CONTROL = new UTF8Control();
 
-    public Text() {
+    public DbText() {
         setParent(ResourceBundle.getBundle(BUNDLE_NAME, 
             FacesContext.getCurrentInstance().getViewRoot().getLocale(), UTF8_CONTROL));
     }

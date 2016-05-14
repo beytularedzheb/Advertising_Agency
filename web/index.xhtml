@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    
+
     <ui:composition template="/template.xhtml">
 
         <ui:define name="title">
@@ -18,11 +18,25 @@
                 <h:form>
                     <p:commandButton value="Button"/>
                 </h:form>
-                
+
+                <p:dataTable var="user" value="#{userController.findAll()}">
+                    <p:column>
+                        <h:outputText value="#{user.userId}" />
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{user.username}" />
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{dbmsg[user.firstNameKey]}" />
+                    </p:column>  
+                    <p:column>
+                        <h:outputText value="#{dbmsg[user.lastNameKey]}" />
+                    </p:column>  
+                </p:dataTable>
             </div>
         </ui:define>
 
     </ui:composition>
-    
+
 </html>
 

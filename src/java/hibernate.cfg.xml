@@ -7,5 +7,13 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/advertisingagency?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root</property>
+    <mapping class="adagency.entity.ServiceCategory"/>
+    <mapping class="adagency.entity.Language"/>
+    <mapping class="adagency.entity.Message"/>
+    <mapping class="adagency.entity.Project"/>
+    <mapping class="adagency.entity.Customer"/>
+    <mapping class="adagency.entity.Service"/>
+    <mapping class="adagency.entity.Employee"/>
+    <mapping class="adagency.entity.User"/>
   </session-factory>
 </hibernate-configuration>
