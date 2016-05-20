@@ -93,4 +93,18 @@ public abstract class AbstractDao<T> {
             s.close();
         }
     }
+
+    public List<T> findTop(int topNumber) {
+        Session s = sessionFactory.openSession();
+        try {
+            if (!s.getTransaction().isActive()) {
+                s.getTransaction().begin();
+            }
+            return s.createQuery("from " + entityClass.getName()).setMaxResults(topNumber).list();
+        } catch (RuntimeException re) {
+            return null;
+        } finally {
+            s.close();
+        }
+    }
 }

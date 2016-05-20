@@ -43,7 +43,7 @@ public class Service implements java.io.Serializable {
         this.serviceId = serviceId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "serviceCategoryId")
     public ServiceCategory getServiceCategory() {
         return this.serviceCategory;

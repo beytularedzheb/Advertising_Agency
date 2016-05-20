@@ -19,8 +19,8 @@ public class DbText extends ResourceBundle {
     protected static final Control UTF8_CONTROL = new UTF8Control();
 
     public DbText() {
-        setParent(ResourceBundle.getBundle(BUNDLE_NAME, 
-            FacesContext.getCurrentInstance().getViewRoot().getLocale(), UTF8_CONTROL));
+        setParent(ResourceBundle.getBundle(BUNDLE_NAME,
+                FacesContext.getCurrentInstance().getViewRoot().getLocale(), UTF8_CONTROL));
     }
 
     @Override
@@ -34,11 +34,10 @@ public class DbText extends ResourceBundle {
     }
 
     protected static class UTF8Control extends Control {
+
         @Override
-        public ResourceBundle newBundle
-            (String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
-                throws IllegalAccessException, InstantiationException, IOException
-        {
+        public ResourceBundle newBundle(String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
+                throws IllegalAccessException, InstantiationException, IOException {
             // The below code is copied from default Control#newBundle() implementation.
             // Only the PropertyResourceBundle line is changed to read the file as UTF-8.
             String bundleName = toBundleName(baseName, locale);

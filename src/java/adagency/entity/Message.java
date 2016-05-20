@@ -11,8 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "messages", catalog = "advertisingagency"
-)
+@Table(name = "messages", catalog = "advertisingagency")
 public class Message implements java.io.Serializable {
 
     private Integer messageId;
@@ -46,7 +45,7 @@ public class Message implements java.io.Serializable {
         this.messageId = messageId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "repliedByUser")
     public User getUser() {
         return this.user;

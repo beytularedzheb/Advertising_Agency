@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{msg.AboutUs}"/>
+        </ui:define>
+
+        <ui:define name="body">
+            <section id="about-us">
+                <div class="container">
+                    <div class="center wow fadeInDown">
+                        <h2>#{msg.AboutAdvertisinAgency} AdNasko</h2>
+                        <p class="lead">#{msg.AboutAdAgencyContent}</p>
+                    </div>
+
+                    <!-- about us slider -->
+                    <div id="about-slider">
+                        <div id="carousel-slider" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators visible-xs">
+                                <li data-target="#carousel-slider" data-slide-to="0" class="active"></li>
+                            </ol>
+
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img src="images/slider_one.jpg" class="img-responsive" alt=""/> 
+                                </div> 
+                            </div>
+                        </div> <!--/#carousel-slider-->
+                    </div><!--/#about-slider-->
+                </div><!--/.container-->
+            </section><!--/about-us-->
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+

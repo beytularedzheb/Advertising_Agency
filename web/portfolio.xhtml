@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{msg.Portfolio}"/>
+        </ui:define>
+
+        <ui:define name="body">
+            <section id="portfolio">
+                <div class="container">
+                    <div class="center">
+                        <h2>#{msg.Portfolio}</h2>                        
+                    </div>
+
+                    <ul class="portfolio-filter text-center">
+                        <li><a class="btn btn-default active" href="#" data-filter="*">#{msg.AllWorks}</a></li>
+                    <ui:repeat var="project" value="#{projectController.findAll()}">
+                        <li><a class="btn btn-default" href="#" data-filter=".#{project.projectType.projectTypeCode}">#{dbmsg[project.projectType.projectTypeTextKey]}</a></li>
+                    </ui:repeat>    
+                    </ul><!--/#portfolio-filter-->
+
+                <ui:repeat var="project" value="#{projectController.findAll()}">
+
+                    <div class="row">
+                        <div class="portfolio-items">
+                            <div class="portfolio-item #{project.projectType.projectTypeCode} col-xs-12 col-sm-4 col-md-3">
+                                <div class="recent-work-wrap">
+                                    <img class="img-responsive" src="#{project.imagePath}" alt=""/>
+                                    <div class="overlay">
+                                        <div class="recent-work-inner">
+                                            <h3><a href="#">#{dbmsg[project.nameKey]}</a></h3>
+                                            <p>#{dbmsg[project.descriptionKey]}</p>
+                                            <a class="preview" href="#{project.imagePath}" rel="prettyPhoto"><i class="fa fa-eye"></i> #{msg.View}</a>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div><!--/.portfolio-item-->
+                        </div>
+                    </div>
+
+                </ui:repeat>
+                </div>
+            </section><!--/#portfolio-item-->
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+

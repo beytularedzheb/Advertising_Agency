@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{msg.ContactUs}"/>
+        </ui:define>
+
+        <ui:define name="body">
+            <section id="contact-info">
+                <div class="center">                
+                    <h2>#{msg.HowToReachUs}</h2>
+                    <p class="lead">#{msg.HowToReachUsLead}</p>
+                </div>
+                <div class="gmap-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-5 text-center">
+                                <div class="gmap">
+                                    <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5754.116514604468!2d25.966492465751475!3d43.85462117096018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40ae60b549ec2a87%3A0x1db831c20f8f622c!2z0KDRg9GB0LXQvdGB0LrQuCDRg9C90LjQstC10YDRgdC40YLQtdGCICLQkNC90LPQtdC7INCa0YrQvdGH0LXQsiI!5e0!3m2!1sbg!2sbg!4v1463694829328"></iframe>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-7 map-content">
+                                <ul class="row">
+                                    <li class="col-sm-6">
+                                        <address>
+                                            <h5>#{msg.HeadOffice}</h5>
+                                            <p>#{msg.AdNaskoAddress}</p>
+                                            <p>#{msg.Phone}: +0123 456 70 90<br/>
+                                               #{msg.Email}: info@adnasko.com</p>
+                                        </address>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>  <!--/gmap_area -->
+
+            <section id="contact-page">
+                <div class="container">
+                    <div class="center">        
+                        <h2>#{msg.DropYourMessage}</h2>
+                        <p class="lead">#{msg.AllAsteriskRequired}</p>
+                    </div> 
+                    <div class="row contact-wrap"> 
+                        <div class="status alert alert-success" style="display: none"></div>
+                        <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php">
+                            <div class="col-sm-5 col-sm-offset-1">
+                                <div class="form-group">
+                                    <label>#{msg.Name} *</label>
+                                    <input type="text" name="name" class="form-control" required="required"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>#{msg.Email} *</label>
+                                    <input type="email" name="email" class="form-control" required="required"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>#{msg.Phone}</label>
+                                    <input type="number" class="form-control"/>
+                                </div>                       
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <label>#{msg.Subject} *</label>
+                                    <input type="text" name="subject" class="form-control" required="required"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>#{msg.Message} *</label>
+                                    <textarea name="message" id="message" required="required" class="form-control" rows="8"></textarea>
+                                </div>                        
+                                <div class="form-group">
+                                    <button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">#{msg.SubmitMessage}</button>
+                                </div>
+                            </div>
+                        </form> 
+                    </div><!--/.row-->
+                </div><!--/.container-->
+            </section><!--/#contact-page-->
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+

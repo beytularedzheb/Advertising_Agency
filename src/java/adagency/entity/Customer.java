@@ -66,9 +66,12 @@ public class Customer implements java.io.Serializable {
         this.logoPath = logoPath;
     }
 
-    @Column(name = "webAddress", length = 100)
+    @Column(name = "webAddress")
     public String getWebAddress() {
-        return this.webAddress;
+        if (this.webAddress != null && !this.webAddress.isEmpty()) {
+            return this.webAddress;
+        }
+        return "#";
     }
 
     public void setWebAddress(String webAddress) {

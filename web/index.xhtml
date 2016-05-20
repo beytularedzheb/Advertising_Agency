@@ -2,38 +2,141 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:composition template="/template.xhtml">
 
         <ui:define name="title">
-            <h:outputText value="Home"/>
+            <h:outputText value="#{msg.Home}"/>
         </ui:define>
 
         <ui:define name="body">
-            <div class="container">
-                Test test test
-                <h:form>
-                    <p:commandButton value="Button"/>
-                </h:form>
+            <section id="main-slider" class="no-margin">
+                <div class="carousel slide">
+                    <ol class="carousel-indicators">
+                        <li data-target="#main-slider" data-slide-to="0" class="active"></li>
+                        <li data-target="#main-slider" data-slide-to="1"></li>
+                    </ol>
+                    <div class="carousel-inner">
 
-                <p:dataTable var="user" value="#{userController.findAll()}">
-                    <p:column>
-                        <h:outputText value="#{user.userId}" />
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{user.username}" />
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{dbmsg[user.firstNameKey]}" />
-                    </p:column>  
-                    <p:column>
-                        <h:outputText value="#{dbmsg[user.lastNameKey]}" />
-                    </p:column>  
-                </p:dataTable>
-            </div>
+                        <div class="item active" style="background-image: url(images/slider/bg1.jpg)">
+                            <div class="container">
+                                <div class="row slide-margin">
+                                    <div class="col-sm-6">
+                                        <div class="carousel-content">
+                                            <h1 class="animation animated-item-1">#{msg.SliderFirstHeader1}</h1>
+                                            <h2 class="animation animated-item-2">#{msg.SliderFirstHeader2}</h2>
+                                            <a class="btn-slide animation animated-item-3" href="#">#{msg.ViewMore}</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 hidden-xs animation animated-item-4">
+                                        <div class="slider-img">
+                                            <img src="images/slider/img1.png" class="img-responsive"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div><!--/.item-->
+
+                        <div class="item" style="background-image: url(images/slider/bg2.jpg)">
+                            <div class="container">
+                                <div class="row slide-margin">
+                                    <div class="col-sm-6">
+                                        <div class="carousel-content">
+                                            <h1 class="animation animated-item-1">#{msg.SliderSecondHeader1}</h1>
+                                            <h2 class="animation animated-item-2">#{msg.SliderSecondHeader2}</h2>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 hidden-xs animation animated-item-4">
+                                        <div class="slider-img">
+                                            <img src="images/slider/img2.png" class="img-responsive"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div><!--/.item-->
+
+                    </div><!--/.carousel-inner-->
+                </div><!--/.carousel-->
+                <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
+                    <i class="fa fa-chevron-left"></i>
+                </a>
+                <a class="next hidden-xs" href="#main-slider" data-slide="next">
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            </section><!--/#main-slider-->
+
+            <section id="feature" >
+                <div class="container">
+                    <div class="center wow fadeInDown">
+                        <h2>#{msg.Website}</h2>
+                        <p class="lead">#{msg.WibsiteSlogan}</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="features">
+                            <div class="col-md-6 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                                <div class="feature-wrap">
+                                    <i class="fa fa-bullhorn"></i>
+                                    <h2>#{msg.Uniqueness}</h2>
+                                    <h3>#{msg.UniquenessDescription}</h3>
+                                </div>
+                            </div><!--/.col-md-6-->
+
+                            <div class="col-md-6 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                                <div class="feature-wrap">
+                                    <i class="fa fa-check-square"></i>
+                                    <h2>#{msg.PurityDesign}</h2>
+                                    <h3>#{msg.PurityDesignDescription}</h3>
+                                </div>
+                            </div><!--/.col-md-6-->
+                        </div><!--/.services-->
+                    </div><!--/.row-->
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                            <div class="feature-wrap">
+                                <i class="fa fa-exchange"></i>
+                                <h2>#{msg.Functionality}</h2>
+                                <h3>#{msg.FunctionalityDescription}</h3>
+                            </div>
+                        </div><!--/.col-md-6-->
+
+                        <div class="features">
+                            <div class="col-md-6 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                                <div class="feature-wrap">
+                                    <i class="fa fa-cogs"></i>
+                                    <h2>#{msg.Structure}</h2>
+                                    <h3>#{msg.StructureDescription}</h3>
+                                </div>
+                            </div><!--/.col-md-6-->
+                        </div><!--/.services-->
+                    </div><!--/.row-->
+
+                </div><!--/.container-->
+            </section><!--/#feature-->
+            
+            <section id="conatcat-info">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="media contact-info wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                                <div class="pull-left">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <div class="media-body">
+                                    <h2>#{msg.HaveQuestion}</h2>
+                                    <p>#{msg.HaveQustionLead}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/.container-->    
+            </section><!--/#conatcat-info-->
         </ui:define>
 
     </ui:composition>

@@ -7,12 +7,12 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "languages", catalog = "advertisingagency", uniqueConstraints = @UniqueConstraint(columnNames = "languageName_Key")
+@Table(name = "languages", catalog = "advertisingagency", uniqueConstraints = @UniqueConstraint(columnNames = "languageName")
 )
 public class Language implements java.io.Serializable {
 
     private String languageCode;
-    private String languageNameKey;
+    private String languageName;
 
     public Language() {
     }
@@ -21,9 +21,9 @@ public class Language implements java.io.Serializable {
         this.languageCode = languageCode;
     }
 
-    public Language(String languageCode, String languageNameKey) {
+    public Language(String languageCode, String languageName) {
         this.languageCode = languageCode;
-        this.languageNameKey = languageNameKey;
+        this.languageName = languageName;
     }
 
     @Id
@@ -36,13 +36,13 @@ public class Language implements java.io.Serializable {
         this.languageCode = languageCode;
     }
 
-    @Column(name = "languageName_Key", unique = true)
-    public String getLanguageNameKey() {
-        return this.languageNameKey;
+    @Column(name = "languageName", unique = true)
+    public String getLanguageName() {
+        return this.languageName;
     }
 
-    public void setLanguageNameKey(String languageNameKey) {
-        this.languageNameKey = languageNameKey;
+    public void setLanguageName(String languageName) {
+        this.languageName = languageName;
     }
 
 }

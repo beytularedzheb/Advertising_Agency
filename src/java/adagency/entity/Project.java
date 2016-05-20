@@ -23,17 +23,21 @@ public class Project implements java.io.Serializable {
 
     private Integer projectId;
     private Customer customer;
+    private ProjectType projectType;
     private String nameKey;
     private String descriptionKey;
+    private String imagePath;
     private Set<Employee> employees = new HashSet<>(0);
 
     public Project() {
     }
 
-    public Project(Customer customer, String nameKey, String descriptionKey, Set<Employee> employees) {
+    public Project(Customer customer, ProjectType projectType, String nameKey, String descriptionKey, String imagePath, Set<Employee> employees) {
         this.customer = customer;
+        this.projectType = projectType;
         this.nameKey = nameKey;
         this.descriptionKey = descriptionKey;
+        this.imagePath = imagePath;
         this.employees = employees;
     }
 
@@ -58,6 +62,16 @@ public class Project implements java.io.Serializable {
         this.customer = customer;
     }
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "projectTypeId")
+    public ProjectType getProjectType() {
+        return this.projectType;
+    }
+
+    public void setProjectType(ProjectType projectType) {
+        this.projectType = projectType;
+    }
+
     @Column(name = "name_Key", unique = true)
     public String getNameKey() {
         return this.nameKey;
@@ -74,6 +88,15 @@ public class Project implements java.io.Serializable {
 
     public void setDescriptionKey(String descriptionKey) {
         this.descriptionKey = descriptionKey;
+    }
+
+    @Column(name = "imagePath")
+    public String getImagePath() {
+        return this.imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "projects")
