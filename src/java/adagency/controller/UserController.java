@@ -8,7 +8,7 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean(name = "userController")
 @SessionScoped
-public class UserController {
+public class UserController implements java.io.Serializable {
 
     private final UserDao userDao = new UserDao();;
     

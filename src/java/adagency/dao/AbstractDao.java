@@ -3,19 +3,18 @@ package adagency.dao;
 import adagency.util.HibernateUtil;
 
 import java.io.*;
+import java.lang.reflect.ParameterizedType;
 import java.util.*;
 import org.hibernate.*;
 
-public abstract class AbstractDao<T> {
+public abstract class AbstractDao<T, PK extends Serializable> {
 
-    private Class<T> entityClass;
+    private final Class<T> entityClass;
     protected final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
-    public AbstractDao(Class<T> entityClass) {
-        this.entityClass = entityClass;
-    }
-
     public AbstractDao() {
+        ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+        this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
     }
 
     public List<T> findAll() {
@@ -80,13 +79,13 @@ public abstract class AbstractDao<T> {
         }
     }
 
-    public T find(Object primarykey) {
+    public T find(PK primarykey) {
         Session s = sessionFactory.openSession();
         try {
             if (!s.getTransaction().isActive()) {
                 s.getTransaction().begin();
             }
-            return (T) s.get(entityClass, (Serializable) primarykey);
+            return (T) s.get(entityClass, primarykey);
         } catch (RuntimeException re) {
             return null;
         } finally {

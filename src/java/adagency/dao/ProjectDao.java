@@ -2,9 +2,6 @@ package adagency.dao;
 
 import adagency.entity.Project;
 
-public class ProjectDao extends AbstractDao<Project> {
+public class ProjectDao extends AbstractDao<Project, Integer> {
 
-    public ProjectDao() {
-        super(Project.class);
-    }
 }

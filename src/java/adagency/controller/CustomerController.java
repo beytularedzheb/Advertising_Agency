@@ -8,11 +8,9 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean(name = "customerController")
 @SessionScoped
-public class CustomerController {
+public class CustomerController implements java.io.Serializable {
 
     private final CustomerDao customerDao = new CustomerDao();
-
-    ;
     
     public List<Customer> findAll() {
         return customerDao.findAll();

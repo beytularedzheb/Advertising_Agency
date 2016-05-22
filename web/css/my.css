@@ -1,0 +1,19 @@
+.redFont {
+    color: #c42c2e !important;
+    text-shadow: 1px 1px #eee !important;
+}
+
+.grayFont {
+    color: #777 !important;
+}
+
+.ellipsis {
+    width: inherit;
+    overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+}
+
+.removePadding {
+   padding: 0 !important;
+}

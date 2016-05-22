@@ -13,20 +13,24 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "servicecategories", catalog = "advertisingagency", uniqueConstraints = @UniqueConstraint(columnNames = "name_Key")
+@Table(name = "servicecategories", catalog = "advertisingagency", uniqueConstraints = {
+    @UniqueConstraint(columnNames = "name_Key"),
+    @UniqueConstraint(columnNames = "description_Key")}
 )
 public class ServiceCategory implements java.io.Serializable {
 
     private Integer serviceCategoryId;
     private String nameKey;
+    private String descriptionKey;
     private Set<Service> services = new HashSet<>(0);
 
     public ServiceCategory() {
     }
 
-    public ServiceCategory(String nameKey, Set<Service> services) {
+    public ServiceCategory(String nameKey, String descriptionKey, Set<Service> services) {
         this.nameKey = nameKey;
         this.services = services;
+        this.descriptionKey = descriptionKey;
     }
 
     @Id
@@ -48,8 +52,17 @@ public class ServiceCategory implements java.io.Serializable {
     public void setNameKey(String nameKey) {
         this.nameKey = nameKey;
     }
+    
+    @Column(name = "description_Key", unique = true)
+    public String getDescriptionKey() {
+        return descriptionKey;
+    }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "serviceCategory")
+    public void setDescriptionKey(String descriptionKey) {
+        this.descriptionKey = descriptionKey;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "serviceCategory")
     public Set<Service> getServices() {
         return this.services;
     }

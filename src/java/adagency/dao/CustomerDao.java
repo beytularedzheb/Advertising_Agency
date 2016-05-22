@@ -2,9 +2,6 @@ package adagency.dao;
 
 import adagency.entity.Customer;
 
-public class CustomerDao extends AbstractDao<Customer> {
+public class CustomerDao extends AbstractDao<Customer, Integer> {
 
-    public CustomerDao() {
-        super(Customer.class);
-    }
 }

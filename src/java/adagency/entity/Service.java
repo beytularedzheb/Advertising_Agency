@@ -12,7 +12,9 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "services", catalog = "advertisingagency", uniqueConstraints = @UniqueConstraint(columnNames = "name_Key")
+@Table(name = "services", catalog = "advertisingagency", uniqueConstraints = {
+    @UniqueConstraint(columnNames = "name_Key"),
+    @UniqueConstraint(columnNames = "description_Key")}
 )
 public class Service implements java.io.Serializable {
 
@@ -21,15 +23,17 @@ public class Service implements java.io.Serializable {
     private String nameKey;
     private Long price;
     private String productionTime;
+    private String descriptionKey;
 
     public Service() {
     }
 
-    public Service(ServiceCategory serviceCategory, String nameKey, Long price, String productionTime) {
+    public Service(ServiceCategory serviceCategory, String nameKey, Long price, String productionTime, String descriptionKey) {
         this.serviceCategory = serviceCategory;
         this.nameKey = nameKey;
         this.price = price;
         this.productionTime = productionTime;
+        this.descriptionKey = descriptionKey;
     }
 
     @Id
@@ -78,6 +82,15 @@ public class Service implements java.io.Serializable {
 
     public void setProductionTime(String productionTime) {
         this.productionTime = productionTime;
+    }
+    
+    @Column(name = "description_Key", unique = true)
+    public String getDescriptionKey() {
+        return descriptionKey;
+    }
+
+    public void setDescriptionKey(String descriptionKey) {
+        this.descriptionKey = descriptionKey;
     }
 
 }

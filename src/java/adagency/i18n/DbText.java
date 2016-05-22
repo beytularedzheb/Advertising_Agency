@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Enumeration;
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
@@ -25,7 +26,11 @@ public class DbText extends ResourceBundle {
 
     @Override
     protected Object handleGetObject(String key) {
-        return parent.getObject(key);
+        try {
+            return parent.getObject(key);
+        } catch (MissingResourceException e) {
+            return "";
+        }
     }
 
     @Override
