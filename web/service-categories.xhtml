@@ -55,7 +55,14 @@
                                     <h4 class="modal-title" id="#{service.nameKey}">#{dbmsg[service.nameKey]}</h4>
                                 </div>
                                 <div class="modal-body">
+                                    #{empty service.descriptionKey and empty service.productionTime and empty service.price ? msg.NoInformation : '' }
                                     <p><h:outputText value="#{dbmsg[service.descriptionKey]}" escape="false"/></p>
+                                    <p style="display: #{empty service.productionTime ? 'none' : 'block'}">
+                                        <strong>#{msg.ApproximateProductionTime}:</strong> #{service.productionTime} #{service.productionTime > 1 ? msg.Days : msg.Day}
+                                    </p>
+                                    <p style="display: #{empty service.price ? 'none' : 'block'}">
+                                        <strong>#{msg.ServicePrice}*:</strong> #{service.price} #{msg.Leva}
+                                    </p>
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,6 @@
 package adagency.entity;
 
+import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,14 +22,14 @@ public class Service implements java.io.Serializable {
     private Integer serviceId;
     private ServiceCategory serviceCategory;
     private String nameKey;
-    private Long price;
-    private String productionTime;
+    private BigDecimal price;
+    private Integer productionTime;
     private String descriptionKey;
 
     public Service() {
     }
 
-    public Service(ServiceCategory serviceCategory, String nameKey, Long price, String productionTime, String descriptionKey) {
+    public Service(ServiceCategory serviceCategory, String nameKey, BigDecimal price, Integer productionTime, String descriptionKey) {
         this.serviceCategory = serviceCategory;
         this.nameKey = nameKey;
         this.price = price;
@@ -66,21 +67,21 @@ public class Service implements java.io.Serializable {
         this.nameKey = nameKey;
     }
 
-    @Column(name = "price", precision = 10, scale = 0)
-    public Long getPrice() {
+    @Column(name = "price", precision = 10, scale = 2)
+    public BigDecimal getPrice() {
         return this.price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    @Column(name = "productionTime", length = 45)
-    public String getProductionTime() {
+    @Column(name = "productionTime")
+    public Integer getProductionTime() {
         return this.productionTime;
     }
 
-    public void setProductionTime(String productionTime) {
+    public void setProductionTime(Integer productionTime) {
         this.productionTime = productionTime;
     }
     
