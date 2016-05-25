@@ -84,7 +84,7 @@ public class Service implements java.io.Serializable {
     public void setProductionTime(Integer productionTime) {
         this.productionTime = productionTime;
     }
-    
+
     @Column(name = "description_Key", unique = true)
     public String getDescriptionKey() {
         return descriptionKey;
@@ -94,4 +94,46 @@ public class Service implements java.io.Serializable {
         this.descriptionKey = descriptionKey;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (serviceId != null ? serviceId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Service)) {
+            return false;
+        }
+        Service other = (Service) object;
+        if ((this.serviceId == null && other.serviceId != null) || (this.serviceId != null && !this.serviceId.equals(other.serviceId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "adagency.entity.Service[ id=" + serviceId + " ]";
+    }
+    
+    /*------------------------------------------------------------------------*/
+    /*public String getName() {
+        return Prop.getValueBySelectedLang(nameKey);
+    }
+
+    public void setName(String name) throws ConfigurationException {
+        Prop.addPropertyBySelectedLang(nameKey, name);
+    }
+
+    public String getDescription() {
+        return Prop.getValueBySelectedLang(descriptionKey);
+    }
+
+    public void setDescription(String description) throws ConfigurationException {
+        Prop.addPropertyBySelectedLang(descriptionKey, description);
+    }*/
+    /*------------------------------------------------------------------------*/    
 }

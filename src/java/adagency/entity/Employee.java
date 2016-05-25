@@ -110,4 +110,28 @@ public class Employee implements java.io.Serializable {
         this.projects = projects;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (employeeId != null ? employeeId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Employee)) {
+            return false;
+        }
+        Employee other = (Employee) object;
+        if ((this.employeeId == null && other.employeeId != null) || (this.employeeId != null && !this.employeeId.equals(other.employeeId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "adagency.entity.Employee[ id=" + employeeId + " ]";
+    }
 }

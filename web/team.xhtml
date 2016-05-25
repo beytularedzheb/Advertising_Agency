@@ -19,11 +19,11 @@
                             <h2>#{msg.TeamOfAdNasko}</h2>                            
                         </div>
                         <div class="row clearfix">
-                            <ui:repeat var="employee" value="#{employeeController.findAll()}" varStatus="statusEmployee">
+                            <ui:repeat var="employee" value="#{employeeController.items}" varStatus="statusEmployee">
 
                                 <div class="col-md-4 col-sm-6 #{statusEmployee.index mod 4 ne 0 ? 'col-md-offset-2' : ''}">
                                     <div 
-                                        class="single-profile-#{(statusEmployee.even and statusEmployee.index mod 4 ne 0) or (statusEmployee.odd and statusEmployee.index mod 3 eq 0) ? 'bottom' : 'top'} wow fadeInDown" 
+                                        class="single-profile-#{(statusEmployee.even and statusEmployee.index mod 4 ne 0) or (statusEmployee.odd and statusEmployee.index mod 3 eq 0) ? 'bottom' : 'top addTopMargin'} wow fadeInDown" 
                                         data-wow-duration="1000ms" 
                                         data-wow-delay="300ms">
                                         <div class="media">
@@ -31,14 +31,14 @@
                                                 <img class="media-object" src="#{employee.picturePath}" alt=""/>
                                             </div>
                                             <div class="media-body">
-                                                <h4>#{dbmsg[employee.firstNameKey]} #{dbmsg[employee.lastNameKey]}</h4>
-                                                <h5>#{dbmsg[employee.jobTitleKey]}</h5>
+                                                <h4>#{propController.getValueByCurrentLang(employee.firstNameKey)} #{propController.getValueByCurrentLang(employee.lastNameKey)}</h4>
+                                                <h5>#{propController.getValueByCurrentLang(employee.jobTitleKey)}</h5>
                                             </div>
                                         </div><!--/.media -->
-                                        <p>#{dbmsg[employee.descriptionKey]}</p>
+                                        <p>#{propController.getValueByCurrentLang(employee.descriptionKey)}</p>
                                     </div>
                                 </div>
-                                <div class="col-md-13  team-bar" style="clear: both; display: #{(statusEmployee.index - 1) mod 4 eq 0  ? 'block;' : 'none;'}">                                 
+                                <div class="col-md-13 team-bar" style="clear: both; display: #{((statusEmployee.index - 1) mod 4 eq 0) or (statusEmployee.last and statusEmployee.even) ? 'block;' : 'none;'}">                                 
                                     <div class="first-one-arrow hidden-xs">
                                         <hr/>
                                     </div>

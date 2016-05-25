@@ -52,7 +52,7 @@ public class ServiceCategory implements java.io.Serializable {
     public void setNameKey(String nameKey) {
         this.nameKey = nameKey;
     }
-    
+
     @Column(name = "description_Key", unique = true)
     public String getDescriptionKey() {
         return descriptionKey;
@@ -71,4 +71,28 @@ public class ServiceCategory implements java.io.Serializable {
         this.services = services;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (serviceCategoryId != null ? serviceCategoryId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof ServiceCategory)) {
+            return false;
+        }
+        ServiceCategory other = (ServiceCategory) object;
+        if ((this.serviceCategoryId == null && other.serviceCategoryId != null) || (this.serviceCategoryId != null && !this.serviceCategoryId.equals(other.serviceCategoryId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "adagency.entity.ServiceCategory[ id=" + serviceCategoryId + " ]";
+    }   
 }

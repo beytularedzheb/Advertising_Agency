@@ -45,4 +45,28 @@ public class Language implements java.io.Serializable {
         this.languageName = languageName;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (languageCode != null ? languageCode.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Language)) {
+            return false;
+        }
+        Language other = (Language) object;
+        if ((this.languageCode == null && other.languageCode != null) || (this.languageCode != null && !this.languageCode.equals(other.languageCode))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "adagency.entity.Language[ id=" + languageCode + " ]";
+    }
 }

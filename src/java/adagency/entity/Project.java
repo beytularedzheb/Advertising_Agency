@@ -52,7 +52,7 @@ public class Project implements java.io.Serializable {
         this.projectId = projectId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ownerId")
     public Customer getCustomer() {
         return this.customer;
@@ -108,4 +108,28 @@ public class Project implements java.io.Serializable {
         this.employees = employees;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (projectId != null ? projectId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Project)) {
+            return false;
+        }
+        Project other = (Project) object;
+        if ((this.projectId == null && other.projectId != null) || (this.projectId != null && !this.projectId.equals(other.projectId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "adagency.entity.Project[ id=" + projectId + " ]";
+    }
 }

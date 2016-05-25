@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CustomerViewDlg" widgetVar="CustomerViewDialog" modal="true" dynamic="true" resizable="false" closable="false" appendTo="@(body)" fitViewport="true">
+            <f:facet name="header">
+                <h:form>
+                    <p:selectOneButton value="#{languageController.selectOneLanguage}">
+                        <p:ajax event="change" update="CustomerViewForm:display" />
+                        <f:selectItems value="#{languageController.items}" var="language" itemLabel="#{language.languageName}" itemValue="#{language}"/>                        
+                    </p:selectOneButton>
+                </h:form>
+            </f:facet>
+            
+            <h:form id="CustomerViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{customerController .selected != null}" style="width: 100% !important;">
+                        <h:outputText value="#{msg.ID}"/>
+                        <h:outputText value="#{customerController.selected.customerId}" title="#{msg.ID}"/>
+                        <h:outputText value="#{msg.Name}"/>
+                        <h:outputText value="#{propController.getValueBySelectedLang(customerController.selected.nameKey)}" title="#{msg.Name}"/>
+                        <h:outputText value="#{msg.Image}"/>
+                        <h:outputText value="#{customerController.selected.logoPath}" title="#{msg.Image}"/>
+                        <h:outputText value="#{msg.WebAddress}"/>
+                        <h:outputText value="#{customerController.selected.webAddress}" title="#{msg.WebAddress}"/>
+                        <h:outputText value="#{msg.Description}"/>
+                        <h:outputText value="#{propController.getValueBySelectedLang(customerController.selected.descriptionKey)}" title="#{msg.Description}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{msg.Close}" onclick="CustomerViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

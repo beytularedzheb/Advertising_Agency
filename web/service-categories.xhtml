@@ -14,10 +14,10 @@
             <section id="services" class="service-item">
                 <div class="container">
                     <ul class="nav nav-stacked">
-                        <ui:repeat var="serviceCategory" value="#{serviceCategoryController.findAll()}">
+                        <ui:repeat var="serviceCategory" value="#{serviceCategoryController.items}">
                             <li id="#{serviceCategory.serviceCategoryId}" class="wow fadeInDown">                                
-                                <h1 class="center" style="border-bottom: .1em solid">#{dbmsg[serviceCategory.nameKey]}</h1>
-                                <p class="lead"><h:outputText value="#{dbmsg[serviceCategory.descriptionKey]}" escape="false"/></p>
+                                <h1 class="center" style="border-bottom: .1em solid">#{propController.getValueByCurrentLang(serviceCategory.nameKey)}</h1>
+                                <p class="lead"><h:outputText value="#{propController.getValueByCurrentLang(serviceCategory.descriptionKey)}" escape="false"/></p>
 
                                 <div class="row">
                                     <ui:repeat var="service" value="#{serviceCategory.services.toArray()}">
@@ -28,7 +28,7 @@
                                                         <a style="cursor: pointer" data-toggle="modal" data-target="#dlg_service_#{service.serviceId}">
                                                             <div class="ellipsis">
                                                                 <i class="fa fa-check-square"></i>
-                                                                #{dbmsg[service.nameKey]}
+                                                                #{propController.getValueByCurrentLang(service.nameKey)}
                                                             </div>
                                                         </a>
                                                     </h2>
@@ -43,7 +43,7 @@
                 </div>
             </section>
 
-            <ui:repeat var="serviceCategory" value="#{serviceCategoryController.findAll()}">
+            <ui:repeat var="serviceCategory" value="#{serviceCategoryController.items}">
                 <ui:repeat var="service" value="#{serviceCategory.services.toArray()}">
                     <div class="modal fade" id="dlg_service_#{service.serviceId}" tabindex="-1" role="dialog" aria-labelledby="##{service.nameKey}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -52,11 +52,11 @@
                                     <button type="button" class="close" data-dismiss="modal">
                                         <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
                                     </button>
-                                    <h4 class="modal-title" id="#{service.nameKey}">#{dbmsg[service.nameKey]}</h4>
+                                    <h4 class="modal-title" id="#{service.nameKey}">#{propController.getValueByCurrentLang(service.nameKey)}</h4>
                                 </div>
                                 <div class="modal-body">
                                     #{empty service.descriptionKey and empty service.productionTime and empty service.price ? msg.NoInformation : '' }
-                                    <p><h:outputText value="#{dbmsg[service.descriptionKey]}" escape="false"/></p>
+                                    <p><h:outputText value="#{propController.getValueByCurrentLang(service.descriptionKey)}" escape="false"/></p>
                                     <p style="display: #{empty service.productionTime ? 'none' : 'block'}">
                                         <strong>#{msg.ApproximateProductionTime}:</strong> #{service.productionTime} #{service.productionTime > 1 ? msg.Days : msg.Day}
                                     </p>
@@ -70,10 +70,10 @@
                 </ui:repeat>
             </ui:repeat>
         </ui:define>
-
+        
     </ui:composition>
-
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    
+    <script src="resources/js/jquery.js"></script>
+    <script src="resources/js/bootstrap.min.js"></script>
 </html>
 

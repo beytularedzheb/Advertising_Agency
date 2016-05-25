@@ -68,10 +68,10 @@ public class Customer implements java.io.Serializable {
 
     @Column(name = "webAddress")
     public String getWebAddress() {
-        if (this.webAddress != null && !this.webAddress.isEmpty()) {
+        /*if (this.webAddress != null && !this.webAddress.isEmpty()) {
             return this.webAddress;
-        }
-        return "#";
+        }*/
+        return this.webAddress;
     }
 
     public void setWebAddress(String webAddress) {
@@ -94,6 +94,31 @@ public class Customer implements java.io.Serializable {
 
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (customerId != null ? customerId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Customer)) {
+            return false;
+        }
+        Customer other = (Customer) object;
+        if ((this.customerId == null && other.customerId != null) || (this.customerId != null && !this.customerId.equals(other.customerId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "adagency.entity.Customer[ id=" + customerId + " ]";
     }
 
 }

@@ -17,3 +17,7 @@
 .removePadding {
    padding: 0 !important;
 }
+
+.addTopMargin {
+    margin-top: 20px !important;
+}

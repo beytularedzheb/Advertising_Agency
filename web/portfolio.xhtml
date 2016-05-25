@@ -19,12 +19,12 @@
 
                     <ul class="portfolio-filter text-center">
                         <li><a class="btn btn-default active" href="#" data-filter="*">#{msg.AllWorks}</a></li>
-                    <ui:repeat var="project" value="#{projectController.findAll()}">
-                        <li><a class="btn btn-default" href="#" data-filter=".#{project.projectType.projectTypeCode}">#{dbmsg[project.projectType.projectTypeTextKey]}</a></li>
+                    <ui:repeat var="projectType" value="#{projectTypeController.items}">
+                        <li><a class="btn btn-default" href="#" data-filter=".#{projectType.projectTypeCode}">#{projectType.projectTypeCode}</a></li>
                     </ui:repeat>    
                     </ul><!--/#portfolio-filter-->
 
-                <ui:repeat var="project" value="#{projectController.findAll()}">
+                <ui:repeat var="project" value="#{projectController.items}">
 
                     <div class="row">
                         <div class="portfolio-items">
@@ -33,8 +33,8 @@
                                     <img class="img-responsive" src="#{project.imagePath}" alt=""/>
                                     <div class="overlay">
                                         <div class="recent-work-inner">
-                                            <h3><a href="#">#{dbmsg[project.nameKey]}</a></h3>
-                                            <p>#{dbmsg[project.descriptionKey]}</p>
+                                            <h3><a href="#">#{propController.getValueByCurrentLang(project.nameKey)}</a></h3>
+                                            <p>#{propController.getValueByCurrentLang(project.descriptionKey)}</p>
                                             <a class="preview" href="#{project.imagePath}" rel="prettyPhoto"><i class="fa fa-eye"></i> #{msg.View}</a>
                                         </div> 
                                     </div>

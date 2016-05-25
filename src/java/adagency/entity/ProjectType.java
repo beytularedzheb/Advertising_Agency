@@ -71,4 +71,38 @@ public class ProjectType implements java.io.Serializable {
         this.projects = projects;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (projectTypeId != null ? projectTypeId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof ProjectType)) {
+            return false;
+        }
+        ProjectType other = (ProjectType) object;
+        if ((this.projectTypeId == null && other.projectTypeId != null) || (this.projectTypeId != null && !this.projectTypeId.equals(other.projectTypeId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "adagency.entity.ProjectType[ id=" + projectTypeId + " ]";
+    }
+
+    /*------------------------------------------------------------------------*/
+    /*public String getProjectTypeText() {
+        return Prop.getValueBySelectedLang(projectTypeTextKey);
+    }
+
+    public void setProjectTypeText(String projectTypeText) throws ConfigurationException {
+        Prop.addPropertyBySelectedLang(projectTypeTextKey, projectTypeText);
+    }*/
+    /*------------------------------------------------------------------------*/
 }

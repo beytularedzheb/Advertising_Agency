@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProjectCreateDlg" widgetVar="ProjectCreateDialog" modal="true" dynamic="true" resizable="false" closable="false" appendTo="@(body)" fitViewport="true">
+
+            <f:facet name="header">
+                <h:form>
+                    <p:selectOneButton value="#{languageController.selectOneLanguage}">
+                        <p:ajax event="change" update="ProjectCreateForm:display" />
+                        <f:selectItems value="#{languageController.items}" var="language" itemLabel="#{language.languageName}" itemValue="#{language}"/>                        
+                    </p:selectOneButton>
+                </h:form>
+                <h:outputText value="#{msg.LanguageWarningMessage}" escape="false" />
+            </f:facet>
+            
+            <h:form id="ProjectCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{projectController .selected != null}" style="width: 100% !important;">
+                        <p:outputLabel value="#{msg.Customer}" for="customer" />
+                        <p:selectOneMenu id="customer" value="#{projectController.selected.customer}" >
+                            <f:selectItems value="#{customerController.items}"
+                                           var="customerItem"
+                                           itemLabel="#{propController.getValueBySelectedLang(customerItem.nameKey)}"
+                                           itemValue="#{customerItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{msg.ProjectType}" for="projectType" />
+                        <p:selectOneMenu id="projectType" value="#{projectController.selected.projectType}" >
+                            <f:selectItems value="#{projectTypeController.items}"
+                                           var="projectTypeItem"
+                                           itemLabel="#{projectTypeItem.projectTypeCode}"
+                                           itemValue="#{projectTypeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{msg.Name}*" for="nameKey" />
+                        <p:inputText id="nameKey" value="#{projectController.name}" title="#{msg.Name}" />
+                        <p:outputLabel value="#{msg.Description}*" for="descriptionKey" />
+                        <p:inputTextarea id="descriptionKey" value="#{projectController.description}" title="#{msg.Description}" style="width: 100% !important;"/>
+                        <p:outputLabel value="#{msg.Image}" for="imagePath" />
+                        <p:inputText id="imagePath" value="#{projectController.selected.imagePath}" title="#{msg.Image}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{projectController.create}" value="#{msg.SaveCurrentChanges}" update="display,:ProjectListForm:datalist,:growl" />
+                    <p:commandButton value="#{msg.Cancel}" oncomplete="PF('ProjectCreateDialog').hide();" ajax="false" immediate="true" />
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

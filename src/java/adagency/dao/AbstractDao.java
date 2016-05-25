@@ -1,13 +1,14 @@
 package adagency.dao;
 
 import adagency.util.HibernateUtil;
+import java.io.Serializable;
 
-import java.io.*;
 import java.lang.reflect.ParameterizedType;
-import java.util.*;
-import org.hibernate.*;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-public abstract class AbstractDao<T, PK extends Serializable> {
+public abstract class AbstractDao<T, PK extends Serializable> implements Serializable {
 
     private final Class<T> entityClass;
     protected final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();

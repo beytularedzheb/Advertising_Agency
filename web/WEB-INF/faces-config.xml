@@ -5,12 +5,8 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <application>
         <resource-bundle>
-            <base-name>adagency.i18n.Text</base-name>
+            <base-name>adagency.i18n.text</base-name>
             <var>msg</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>adagency.i18n.DbText</base-name>
-            <var>dbmsg</var>
         </resource-bundle>
     </application>
 </faces-config>
