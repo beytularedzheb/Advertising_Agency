@@ -21,3 +21,7 @@
 .addTopMargin {
     margin-top: 20px !important;
 }
+.noborder.ui-panelgrid>*>tr,
+.noborder.ui-panelgrid>*>tr>td {
+    border: none !important;
+}

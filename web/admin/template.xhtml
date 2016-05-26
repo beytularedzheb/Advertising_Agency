@@ -16,6 +16,10 @@
             <meta name="description" content="Advertising Agency Website"/>
             <meta name="author" content="Beytula Redzheb"/>
 
+            <h:outputStylesheet library="css" name="jsfcrud.css"/>
+            <h:outputStylesheet library="css" name="my.css"/>
+            <h:outputScript library="js" name="jsfcrud.js"/>
+
             <link rel="shortcut icon" href="../../images/ico/favicon.ico"/>
             <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../resources/images/ico/apple-touch-icon-144-precomposed.png"/>
             <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../resources/images/ico/apple-touch-icon-114-precomposed.png"/>
@@ -30,8 +34,24 @@
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" minSize="100" header="#{msg.AdminPanel}" collapsible="true" gutter="0">
 
+                    <h:form>
+                        <p:menubar>
+                            <ui:insert name="menuItems"/>
+
+                            <f:facet name="options">
+                                <p:panelGrid columns="2" class="noborder">
+                                    <p:outputLabel for="languageSelectOne" value="#{msg.Language}:"/>
+                                    <p:selectOneMenu id="languageSelectOne" value="#{languageController.language}" onchange="submit()">
+                                        <f:selectItems value="#{languageController.items}" var="language" itemLabel="#{language.languageName}" itemValue="#{language}"/>                        
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                            </f:facet>
+                        </p:menubar>
+
+                    </h:form>
+
                 </p:layoutUnit>
-                
+
                 <p:layoutUnit position="center" collapsible="true" gutter="0">
                     <ui:insert name="body"/>
                 </p:layoutUnit>
@@ -39,6 +59,5 @@
 
         </h:body>
     </f:view>
-    <script src="../../resources/js/jsfcrud.js"></script>
 </html>
 

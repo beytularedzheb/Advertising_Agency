@@ -1,7 +1,7 @@
 package adagency.controller;
 
-import adagency.dao.ServiceCategoryDao;
-import adagency.entity.ServiceCategory;
+import adagency.dao.ServiceDao;
+import adagency.entity.Service;
 import adagency.i18n.Text;
 import adagency.util.AbstractHelper;
 import adagency.util.JsfUtil;
@@ -19,23 +19,30 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import org.apache.commons.configuration.ConfigurationException;
 
-@ManagedBean(name = "serviceCategoryController")
+@ManagedBean(name = "serviceController")
 @SessionScoped
-public class ServiceCategoryController extends AbstractHelper<ServiceCategory> implements java.io.Serializable {
-    
+public class ServiceController extends AbstractHelper<Service> implements java.io.Serializable {
+
     @ManagedProperty(value = "#{propController}")
     private PropController propController;
 
-    private final ServiceCategoryDao serviceCategoryDao = new ServiceCategoryDao();
+    @ManagedProperty(value = "#{serviceCategoryController}")
+    private ServiceCategoryController serviceCategoryController;
 
-    public ServiceCategory getServiceCategoryById(Integer id) {
-        return getServiceCategoryDao().find(id);
+    public void setServiceCategoryController(ServiceCategoryController serviceCategoryController) {
+        this.serviceCategoryController = serviceCategoryController;
+    }
+
+    private final ServiceDao serviceDao = new ServiceDao();
+
+    public Service getServiceById(Integer id) {
+        return getServiceDao().find(id);
     }
 
     @Override
-    public List<ServiceCategory> getItems() {
+    public List<Service> getItems() {
         if (items == null) {
-            items = getServiceCategoryDao().findAll();
+            items = getServiceDao().findAll();
         }
         return items;
     }
@@ -44,20 +51,20 @@ public class ServiceCategoryController extends AbstractHelper<ServiceCategory> i
         this.propController = propController;
     }
 
-    public ServiceCategoryDao getServiceCategoryDao() {
-        return serviceCategoryDao;
+    public ServiceDao getServiceDao() {
+        return serviceDao;
     }
 
     @Override
-    public ServiceCategory prepareEdit() {
+    public Service prepareEdit() {
         boolEdit = true;
         boolCreate = false;
         return getSelected();
     }
 
     @Override
-    public ServiceCategory prepareCreate() {
-        setSelected(new ServiceCategory());
+    public Service prepareCreate() {
+        setSelected(new Service());
         name = "";
         description = "";
         boolEdit = false;
@@ -71,29 +78,31 @@ public class ServiceCategoryController extends AbstractHelper<ServiceCategory> i
             try {
                 switch (persistAction) {
                     case CREATE:
-                        if (getSelected().getServiceCategoryId() == null) {
-                            getServiceCategoryDao().create(getSelected());
+                        if (getSelected().getServiceId() == null) {
+                            getServiceDao().create(getSelected());
                             boolEdit = true;
                             boolCreate = false;
                         }
                     // notice that CREATE does not have break statement!
                     case UPDATE:
                         if (shouldUpdate(name, getSelected().getNameKey())) {
-                            getSelected().setNameKey(generateKey("serviceCategoryName", getSelected().getServiceCategoryId().toString()));
+                            getSelected().setNameKey(generateKey("serviceName", getSelected().getServiceId().toString()));
                         }
                         if (shouldUpdate(description, getSelected().getDescriptionKey())) {
-                            getSelected().setDescriptionKey(generateKey("serviceCategoryDescription", getSelected().getServiceCategoryId().toString()));
+                            getSelected().setDescriptionKey(generateKey("serviceDescription", getSelected().getServiceId().toString()));
                         }
                         propController.addPropertyBySelectedLang(getSelected().getNameKey(), name);
                         propController.addPropertyBySelectedLang(getSelected().getDescriptionKey(), description);
 
-                        getServiceCategoryDao().update(getSelected());
+                        getServiceDao().update(getSelected());
 
+                        serviceCategoryController.reloadItems();
                         break;
                     case DELETE:
                         propController.removeProperty(getSelected().getNameKey());
                         propController.removeProperty(getSelected().getDescriptionKey());
-                        getServiceCategoryDao().delete(getSelected());
+                        getServiceDao().delete(getSelected());
+                        serviceCategoryController.reloadItems();
                         break;
                 }
                 JsfUtil.addSuccessMessage(successMessage);
@@ -111,12 +120,8 @@ public class ServiceCategoryController extends AbstractHelper<ServiceCategory> i
             }
         }
     }
-    
-    public void reloadItems() {
-        this.items = null;
-    }
-    
-    @FacesConverter(forClass = ServiceCategory.class)
+
+    @FacesConverter(forClass = Service.class)
     public static class ServiceCategoryControllerConverter implements Converter {
 
         @Override
@@ -124,9 +129,9 @@ public class ServiceCategoryController extends AbstractHelper<ServiceCategory> i
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ServiceCategoryController controller = (ServiceCategoryController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "serviceCategoryController");
-            return controller.getServiceCategoryById(Integer.valueOf(value));
+            ServiceController controller = (ServiceController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "serviceController");
+            return controller.getServiceById(Integer.valueOf(value));
         }
 
         @Override
@@ -134,11 +139,11 @@ public class ServiceCategoryController extends AbstractHelper<ServiceCategory> i
             if (object == null) {
                 return null;
             }
-            if (object instanceof ServiceCategory) {
-                ServiceCategory o = (ServiceCategory) object;
-                return o.getServiceCategoryId().toString();
+            if (object instanceof Service) {
+                Service o = (Service) object;
+                return o.getServiceId().toString();
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), ServiceCategory.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Service.class.getName()});
                 return null;
             }
         }

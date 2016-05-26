@@ -10,12 +10,24 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{msg.Message}"></h:outputText>
+            <h:outputText value="#{msg.Messages}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="menuItems">
+            <p:menuitem value="#{msg.Home}" url="../index.xhtml" icon="ui-icon-home"/>
+            <p:menuitem value="#{msg.Customers}" url="../customer/List.xhtml" />
+            <p:menuitem value="#{msg.Employees}" url="../employee/List.xhtml" />
+            <p:menuitem value="#{msg.Messages}" url="../message/List.xhtml" />
+            <p:menuitem value="#{msg.Projects}" url="../project/List.xhtml" />
+            <p:menuitem value="#{msg.ProjectTypes}" url="../project-type/List.xhtml" />
+            <p:menuitem value="#{msg.Services}" url="../service/List.xhtml" />
+            <p:menuitem value="#{msg.ServiceCategories}" url="../service-category/List.xhtml" />
+            <p:menuitem value="#{msg.Users}" url="../user/List.xhtml" />
         </ui:define>
 
         <ui:define name="body">
             <h:form id="MessageListForm">
-                <p:panel header="#{msg.Message}">
+                <p:panel header="#{msg.Messages}">
                     <p:dataTable id="datalist" value="#{messageController.items}" var="item"
                                  selectionMode="single" selection="#{messageController.selected}"
                                  paginator="true"
@@ -24,8 +36,8 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
 
                         <p:column>
                             <f:facet name="header">

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UserViewDlg" widgetVar="UserViewDialog" modal="true" dynamic="true" resizable="false" closable="false" appendTo="@(body)" fitViewport="true">            
+            <f:facet name="header">
+                <h:form>
+                    <p:selectOneButton value="#{languageController.selectOneLanguage}">
+                        <p:ajax event="change" update="UserViewForm:display" />
+                        <f:selectItems value="#{languageController.items}" var="language" itemLabel="#{language.languageName}" itemValue="#{language}"/>                        
+                    </p:selectOneButton>
+                </h:form>
+            </f:facet>
+            
+            <h:form id="UserViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{userController.selected != null}">
+                        <h:outputText value="#{msg.ID}"/>
+                        <h:outputText value="#{userController.selected.userId}" title="#{msg.ID}"/>
+                        <h:outputText value="#{msg.Username}"/>
+                        <h:outputText value="#{userController.selected.username}" title="#{msg.Username}"/>
+                        <h:outputText value="#{msg.Email}"/>
+                        <h:outputText value="#{userController.selected.email}" title="#{msg.Email}"/>
+                        <h:outputText value="#{msg.Password}"/>
+                        <h:outputText value="#{userController.selected.password}" title="#{msg.Password}"/>
+                        <h:outputText value="#{msg.FirstName}"/>
+                        <h:outputText value="#{propController.getValueBySelectedLang(userController.selected.firstNameKey)}" title="#{msg.FirstName}"/>
+                        <h:outputText value="#{msg.LastName}"/>
+                        <h:outputText value="#{propController.getValueBySelectedLang(userController.selected.lastNameKey)}" title="#{msg.LastName}"/>
+                        <h:outputText value="#{msg.Phone}"/>
+                        <h:outputText value="#{userController.selected.phone}" title="#{msg.Phone}"/>
+                        <h:outputText value="#{msg.Address}"/>
+                        <h:outputText value="#{propController.getValueBySelectedLang(userController.selected.addressKey)}" title="#{msg.Address}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{msg.Close}" onclick="UserViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

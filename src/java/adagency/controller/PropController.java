@@ -25,9 +25,9 @@ public class PropController implements java.io.Serializable {
             try {
                 PropertiesConfiguration prop = new PropertiesConfiguration();
                 prop.setDelimiterParsingDisabled(true);
-                prop.setReloadingStrategy(new FileChangedReloadingStrategy());
                 prop.load("adagency/i18n/dbtext_" + language.getLanguageCode() + ".properties");
-
+                prop.setReloadingStrategy(new FileChangedReloadingStrategy());
+                
                 props.put(language.getLanguageCode(), prop);
             } catch (ConfigurationException ex) {
                 System.err.println(ex.getMessage());
@@ -52,9 +52,11 @@ public class PropController implements java.io.Serializable {
     public void addPropertyBySelectedLang(String key, String value) throws ConfigurationException {
         PropertiesConfiguration p = props.get(langController.getSelectOneLanguage().getLanguageCode());
 
-        if (key != null && !key.isEmpty() && (!p.containsKey(key) || !p.getString(key).equals(value))) {
+        if ((value != null && !value.isEmpty()) 
+                && (key != null && !key.isEmpty()) 
+                && (!p.containsKey(key) || !p.getString(key).equals(value))) {
             p.setProperty(key, value);
-            p.save(p.getFile());
+            p.save(p.getBasePath());
         }
     }
 
@@ -64,7 +66,7 @@ public class PropController implements java.io.Serializable {
                 PropertiesConfiguration pc = props.get(p);
                 if (pc.containsKey(key)) {
                     pc.clearProperty(key);
-                    pc.save(pc.getFile());
+                    pc.save(pc.getBasePath());
                 }
             }
         }

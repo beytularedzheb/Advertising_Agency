@@ -22,13 +22,13 @@
             <h:form id="CustomerEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{customerController .selected != null}" style="width: 100% !important;">
-                        <p:outputLabel value="#{msg.Name}" for="nameKey" />
+                        <p:outputLabel value="#{msg.Name}*" for="nameKey" />
                         <p:inputText id="nameKey" value="#{customerController.name}" title="#{msg.Name}" />
                         <p:outputLabel value="#{msg.Image}" for="logoPath" />
                         <p:inputText id="logoPath" value="#{customerController.selected.logoPath}" title="#{msg.Image}" />
                         <p:outputLabel value="#{msg.WebAddress}" for="webAddress" />
                         <p:inputText id="webAddress" value="#{customerController.selected.webAddress}" title="#{msg.WebAddress}" />
-                        <p:outputLabel value="#{msg.Description}" for="descriptionKey" />
+                        <p:outputLabel value="#{msg.Description}*" for="descriptionKey" />
                         <p:inputTextarea id="descriptionKey" value="#{customerController.description}" title="#{msg.Description}" style="width: 100% !important;"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{customerController.update}" value="#{msg.SaveCurrentChanges}" update="display,:CustomerListForm:datalist,:growl"/>

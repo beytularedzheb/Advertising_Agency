@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="template.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{msg.Home}"/>
+        </ui:define>
+
+        <ui:define name="menuItems">
+            <p:menuitem value="#{msg.Home}" url="index.xhtml" icon="ui-icon-home"/>
+            <p:menuitem value="#{msg.Customers}" url="customer/List.xhtml" />
+            <p:menuitem value="#{msg.Employees}" url="employee/List.xhtml" />
+            <p:menuitem value="#{msg.Messages}" url="message/List.xhtml" />
+            <p:menuitem value="#{msg.Projects}" url="project/List.xhtml" />
+            <p:menuitem value="#{msg.ProjectTypes}" url="project-type/List.xhtml" />
+            <p:menuitem value="#{msg.Services}" url="service/List.xhtml" />
+            <p:menuitem value="#{msg.ServiceCategories}" url="service-category/List.xhtml" />
+            <p:menuitem value="#{msg.Users}" url="user/List.xhtml" />
+        </ui:define>
+
+        <ui:define name="body">
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+

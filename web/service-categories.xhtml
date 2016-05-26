@@ -55,7 +55,7 @@
                                     <h4 class="modal-title" id="#{service.nameKey}">#{propController.getValueByCurrentLang(service.nameKey)}</h4>
                                 </div>
                                 <div class="modal-body">
-                                    #{empty service.descriptionKey and empty service.productionTime and empty service.price ? msg.NoInformation : '' }
+                                    #{(empty service.descriptionKey) and (empty service.productionTime) and (empty service.price) ? msg.NoInformation : '' }
                                     <p><h:outputText value="#{propController.getValueByCurrentLang(service.descriptionKey)}" escape="false"/></p>
                                     <p style="display: #{empty service.productionTime ? 'none' : 'block'}">
                                         <strong>#{msg.ApproximateProductionTime}:</strong> #{service.productionTime} #{service.productionTime > 1 ? msg.Days : msg.Day}

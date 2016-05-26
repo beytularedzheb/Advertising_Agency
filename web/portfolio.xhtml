@@ -20,7 +20,7 @@
                     <ul class="portfolio-filter text-center">
                         <li><a class="btn btn-default active" href="#" data-filter="*">#{msg.AllWorks}</a></li>
                     <ui:repeat var="projectType" value="#{projectTypeController.items}">
-                        <li><a class="btn btn-default" href="#" data-filter=".#{projectType.projectTypeCode}">#{projectType.projectTypeCode}</a></li>
+                        <li><a class="btn btn-default" href="#" data-filter=".#{projectType.projectTypeCode}">#{propController.getValueByCurrentLang(projectType.projectTypeTextKey)}</a></li>
                     </ui:repeat>    
                     </ul><!--/#portfolio-filter-->
 

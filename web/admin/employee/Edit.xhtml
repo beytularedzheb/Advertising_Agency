@@ -34,7 +34,7 @@
                         <p:outputLabel value="#{msg.Description}" for="descriptionKey" />
                         <p:inputTextarea id="descriptionKey" value="#{employeeController.description}" title="#{msg.Description}" style="width: 100% !important;"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{employeeController.update}" value="#{msg.Save}" update="display,:EmployeeListForm:datalist,:growl"/>
+                    <p:commandButton actionListener="#{employeeController.update}" value="#{msg.SaveCurrentChanges}" update="display,:EmployeeListForm:datalist,:growl"/>
                     <p:commandButton value="#{msg.Close}" ajax="false" immediate="true" oncomplete="PF('EmployeeEditDialog').hide()"/>
                 </h:panelGroup>
             </h:form>

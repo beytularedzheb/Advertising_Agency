@@ -144,11 +144,10 @@ public class ProjectTypeController extends AbstractHelper<ProjectType> implement
         if (boolEdit && !boolCreate) {
             projectTypeText = propController.getValueBySelectedLang(getSelected().getProjectTypeTextKey());
         }
-
         return projectTypeText;
     }
 
-    public void setProjectTypeTextn(String projectTypeText) throws ConfigurationException {
+    public void setProjectTypeText(String projectTypeText) {
         this.projectTypeText = projectTypeText;
     }
     /*------------------------------------------------------------------------*/
