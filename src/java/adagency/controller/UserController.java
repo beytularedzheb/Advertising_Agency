@@ -4,7 +4,10 @@ import adagency.dao.UserDao;
 import adagency.entity.User;
 import adagency.i18n.Text;
 import adagency.util.AbstractHelper;
+import adagency.util.Global;
 import adagency.util.JsfUtil;
+import adagency.util.MD5Hashing;
+import adagency.util.SessionUtil;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -16,12 +19,19 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.configuration.ConfigurationException;
 
 @ManagedBean(name = "userController")
 @SessionScoped
 public class UserController extends AbstractHelper<User> implements java.io.Serializable {
 
+    private User loggedUser;
+
+    public User getLoggedUser() {
+        return loggedUser;
+    }
+    
     @ManagedProperty(value = "#{propController}")
     private PropController propController;
 
@@ -38,7 +48,7 @@ public class UserController extends AbstractHelper<User> implements java.io.Seri
     public User getUserById(Integer id) {
         return getUserDao().find(id);
     }
-    
+
     @Override
     public List<User> getItems() {
         if (items == null) {
@@ -118,6 +128,59 @@ public class UserController extends AbstractHelper<User> implements java.io.Seri
         }
     }
 
+    private String username;
+    private String password;
+
+    public String login() {
+        if (getUserDao().validate(username, MD5Hashing.getMD5(password))) {
+            
+            HttpSession session = SessionUtil.getSession();
+            session.setAttribute(Global.SESSION_USERNAME, getUsername());
+            loggedUser = getUserDao().findUserByUsername(getUsername());
+            if (loggedUser == null) {
+                loggedUser = getUserDao().findUserByEmail(getUsername());
+            }
+            
+            this.username = null;
+            this.password = null;
+            
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle(Text.BUNDLE_NAME).getString("Welcome") + " " + loggedUser.getUsername());
+        }
+        else {
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle(Text.BUNDLE_NAME).getString("InvalidUsernameOrPassword"));
+            return null;
+        }
+        
+        if (loggedUser != null) {            
+            return Global.ADMIN_DEFAULT_PAGE + "?faces-redirect=true";
+        }
+        return Global.ADMIN_LOGIN_PAGE + "?faces-redirect=true";
+    }
+    
+    public String logout() {
+        HttpSession session = SessionUtil.getSession();
+        session.invalidate();
+        loggedUser = null;
+        
+        return Global.ADMIN_LOGIN_PAGE + "?faces-redirect=true";
+    } 
+
+    public String getUsername() {
+        return username;
+    }
+    
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @FacesConverter(forClass = User.class)
     public static class UserControllerConverter implements Converter {
 
@@ -145,7 +208,7 @@ public class UserController extends AbstractHelper<User> implements java.io.Seri
             }
         }
     }
-    
+
     /*------------------------------------------------------------------------*/
     String firstName;
     String lastName;

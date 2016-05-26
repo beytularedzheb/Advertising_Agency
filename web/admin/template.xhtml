@@ -32,8 +32,13 @@
             <p:growl id="growl" life="3500" autoUpdate="true" showDetail="false" />
 
             <p:layout fullPage="true">
-                <p:layoutUnit position="north" minSize="100" header="#{msg.AdminPanel}" collapsible="true" gutter="0">
-
+                <p:layoutUnit position="north" minSize="100" >
+                    <f:facet name="header">
+                        #{msg.AdminPanel}
+                        <h:form>
+                            <p:commandButton value="#{msg.Logout}" action="#{userController.logout()}" icon="ui-icon-locked" />
+                        </h:form>
+                    </f:facet>
                     <h:form>
                         <p:menubar>
                             <ui:insert name="menuItems"/>
@@ -44,7 +49,7 @@
                                     <p:selectOneMenu id="languageSelectOne" value="#{languageController.language}" onchange="submit()">
                                         <f:selectItems value="#{languageController.items}" var="language" itemLabel="#{language.languageName}" itemValue="#{language}"/>                        
                                     </p:selectOneMenu>
-                                </p:panelGrid>
+                                </p:panelGrid>                                
                             </f:facet>
                         </p:menubar>
 
