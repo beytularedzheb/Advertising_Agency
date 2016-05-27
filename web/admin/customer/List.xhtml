@@ -39,7 +39,7 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <p:column sortBy="#{item.customerId}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.ID}"/>
                             </f:facet>
@@ -57,7 +57,7 @@
                             </f:facet>
                             <h:outputText value="#{item.logoPath}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.webAddress}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.WebAddress}"/>
                             </f:facet>

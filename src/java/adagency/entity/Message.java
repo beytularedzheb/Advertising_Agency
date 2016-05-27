@@ -18,7 +18,9 @@ public class Message implements java.io.Serializable {
     private User user;
     private String content;
     private String senderEmail;
-    private Boolean replied;
+    private String senderName;
+    private String subject;
+    private String senderPhone;
 
     public Message() {
     }
@@ -27,11 +29,13 @@ public class Message implements java.io.Serializable {
         this.senderEmail = senderEmail;
     }
 
-    public Message(User user, String content, String senderEmail, Boolean replied) {
+    public Message(User user, String content, String senderEmail, String senderName, String subject, String senderPhone) {
         this.user = user;
         this.content = content;
         this.senderEmail = senderEmail;
-        this.replied = replied;
+        this.senderName = senderName;
+        this.subject = subject;
+        this.senderPhone = senderPhone;
     }
 
     @Id
@@ -55,7 +59,7 @@ public class Message implements java.io.Serializable {
         this.user = user;
     }
 
-    @Column(name = "content", length = 16777215)
+    @Column(name = "content", nullable = false, length = 16777215)
     public String getContent() {
         return this.content;
     }
@@ -72,16 +76,34 @@ public class Message implements java.io.Serializable {
     public void setSenderEmail(String senderEmail) {
         this.senderEmail = senderEmail;
     }
-
-    @Column(name = "replied")
-    public Boolean getReplied() {
-        return this.replied;
+    
+    @Column(name = "senderName", nullable = false, length = 45)
+    public String getSenderName() {
+        return senderName;
     }
 
-    public void setReplied(Boolean replied) {
-        this.replied = replied;
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
     }
 
+    @Column(name = "subject", nullable = false, length = 100)
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+    
+    @Column(name = "senderPhone", length = 45)
+    public String getSenderPhone() {
+        return senderPhone;
+    }
+
+    public void setSenderPhone(String senderPhone) {
+        this.senderPhone = senderPhone;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

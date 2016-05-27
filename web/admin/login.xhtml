@@ -7,26 +7,36 @@
 
     <f:view encoding="UTF-8" contentType="text/html" locale="#{languageController.language.languageCode}">
         <h:head>
+            <h:outputStylesheet library="css" name="my.css"/>
         </h:head>
-        
+
         <h:body>
             <p:growl id="growl" autoUpdate="true"  showDetail="true" life="3500" />
 
-            <h:form>          
-                <p:panel header="#{msg.Admin}" style="width: 20em; margin: 0 auto;">
+
+            <p:panel  style="max-width: 25em; margin: 0 auto;">
+                <f:facet name='header'>
+                    <h:form>
+                        <p:selectOneMenu id="languageSelectOne" value="#{languageController.language}" onchange="submit()">
+                            <f:selectItems value="#{languageController.items}" var="language" itemLabel="#{language.languageName}" itemValue="#{language}"/>                        
+                        </p:selectOneMenu>
+                    </h:form>
+                </f:facet>
+                <h:form>
                     <h:panelGrid columns="2" cellpadding="5">
                         <h:outputLabel for="username" value="#{msg.Username}:" />
-                        <p:inputText id="username" value="#{userController.username}" required="true" label="username" />
+                        <p:inputText id="username" value="#{userController.username}" required="true" requiredMessage="#{msg.EnterUsername}" label="username" />
 
                         <h:outputLabel for="password" value="#{msg.Password}:" />
-                        <p:password id="password" value="#{userController.password}" required="true" label="password" />
+                        <p:password id="password" value="#{userController.password}" required="true" requiredMessage="#{msg.EnterPassword}" label="password" />
+                        
+                        <h:outputText />
+                        <p:commandButton value="#{msg.Login}" update="username, password, :growl" action="#{userController.login}" icon="ui-icon-unlocked" />
 
-                        <f:facet name="footer">
-                            <p:commandButton value="#{msg.Login}" update=":growl" action="#{userController.login}" icon="ui-icon-unlocked" />
-                        </f:facet>
                     </h:panelGrid>
-                </p:panel>
-            </h:form>
+                </h:form>
+            </p:panel>
+
         </h:body>
     </f:view>
 

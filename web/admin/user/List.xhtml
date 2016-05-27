@@ -39,19 +39,19 @@
                         <p:ajax event="rowSelect"   update="viewButton"/>
                         <p:ajax event="rowUnselect" update="viewButton"/>
 
-                        <p:column>
+                        <p:column sortBy="#{item.userId}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.ID}"/>
                             </f:facet>
                             <h:outputText value="#{item.userId}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.username}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.Username}"/>
                             </f:facet>
                             <h:outputText value="#{item.username}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.email}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.Email}"/>
                             </f:facet>
@@ -71,7 +71,7 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{msg.LastName}"/>
+                                <h:outputText value="#{msg.lastNameKey}"/>
                             </f:facet>
                             <h:outputText value="#{propController.getValueByCurrentLang(item.lastNameKey)}"/>
                         </p:column>

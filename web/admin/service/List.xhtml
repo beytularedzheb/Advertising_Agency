@@ -32,14 +32,14 @@
                                  selectionMode="single" selection="#{serviceController.selected}"
                                  paginator="true"
                                  rowKey="#{item.serviceId}"
-                                 rows="10"
+                                 rows="20"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <p:column sortBy="#{item.serviceId}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.ID}"/>
                             </f:facet>
@@ -57,13 +57,13 @@
                             </f:facet>
                             <h:outputText value="#{propController.getValueByCurrentLang(item.nameKey)}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.price}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.ServicePrice} (#{msg.Leva})"/>
                             </f:facet>
                             <h:outputText value="#{item.price}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.productionTime}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.ApproximateProductionTime}"/>
                             </f:facet>

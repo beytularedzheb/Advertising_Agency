@@ -8,7 +8,6 @@
 
     <ui:composition template="../template.xhtml">
 
-
         <ui:define name="title">
             <h:outputText value="#{msg.Messages}"></h:outputText>
         </ui:define>
@@ -39,17 +38,23 @@
                         <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <p:column sortBy="#{item.messageId}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.ID}"/>
                             </f:facet>
                             <h:outputText value="#{item.messageId}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.user.username}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.RepliedByUser}"/>
                             </f:facet>
                             <h:outputText value="#{item.user.username}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.subject}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.Subject}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subject}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -57,17 +62,23 @@
                             </f:facet>
                             <h:outputText value="#{item.content}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.senderName}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.Sender}"/>
                             </f:facet>
+                            <h:outputText value="#{item.senderName}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.senderEmail}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.Email}"/>
+                            </f:facet>
                             <h:outputText value="#{item.senderEmail}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.senderPhone}">
                             <f:facet name="header">
-                                <h:outputText value="#{msg.IsReplied}"/>
+                                <h:outputText value="#{msg.Phone}"/>
                             </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.replied}" disabled="true"/>
+                            <h:outputText value="#{item.senderPhone}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{msg.View}" update=":MessageViewForm" oncomplete="PF('MessageViewDialog').show()" disabled="#{empty messageController.selected}"/>

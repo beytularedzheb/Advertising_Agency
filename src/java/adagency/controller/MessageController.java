@@ -10,18 +10,23 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.apache.commons.lang.StringUtils;
+import org.primefaces.context.RequestContext;
 
-@ManagedBean(name = "messageCategoryController")
+@ManagedBean(name = "messageController")
 @SessionScoped
 public class MessageController extends AbstractHelper<Message> implements java.io.Serializable {
 
     private final MessageDao messageDao = new MessageDao();
+
+    private Message message = new Message();
 
     public Message getMessageById(Integer id) {
         return getMessageDao().find(id);
@@ -54,19 +59,38 @@ public class MessageController extends AbstractHelper<Message> implements java.i
         return getSelected();
     }
 
+    public void sendMessage() {
+
+        if (validate(message)) {
+            getMessageDao().create(message);
+
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ResourceBundle rb = FacesContext.getCurrentInstance().getApplication().getResourceBundle(ctx, Text.BUNDLE_VAR_NAME);
+
+            ctx.addMessage(":mygrowl",
+                    new FacesMessage(FacesMessage.SEVERITY_INFO,
+                            rb.getString("SuccessfullySentMessage"),
+                            ""));
+            RequestContext.getCurrentInstance().update("mygrowl");
+
+            message = new Message();
+        }
+    }
+
     @Override
     public void persist(PersistAction persistAction, String successMessage) {
         if (getSelected() != null) {
             try {
                 switch (persistAction) {
                     case CREATE:
-                        if (getSelected().getMessageId() == null) {
-                            getMessageDao().create(getSelected());
-                            boolEdit = true;
-                            boolCreate = false;
-                        }
-                        else {
-                            getMessageDao().update(getSelected());
+                        if (validate(getSelected())) {
+                            if (getSelected().getMessageId() == null) {
+                                getMessageDao().create(getSelected());
+                                boolEdit = true;
+                                boolCreate = false;
+                            } else {
+                                getMessageDao().update(getSelected());
+                            }
                         }
                         break;
                     case UPDATE:
@@ -86,10 +110,29 @@ public class MessageController extends AbstractHelper<Message> implements java.i
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle(Text.BUNDLE_NAME).getString("ErrorOccured"));
+                    FacesContext ctx = FacesContext.getCurrentInstance();
+                    ResourceBundle rb = FacesContext.getCurrentInstance().getApplication().getResourceBundle(ctx, Text.BUNDLE_VAR_NAME);
+                    JsfUtil.addErrorMessage(ex, rb.getString("ErrorOccured"));
                 }
             }
         }
+    }
+
+    private boolean validate(Message message) {
+        return (message != null
+                && message.getMessageId() == null
+                && !StringUtils.isBlank(message.getSenderName())
+                && !StringUtils.isBlank(message.getSenderEmail())
+                && !StringUtils.isBlank(message.getContent())
+                && !StringUtils.isBlank(message.getSubject()));
+    }
+
+    public Message getMessage() {
+        return message;
+    }
+
+    public void setMessage(Message message) {
+        this.message = message;
     }
 
     @FacesConverter(forClass = Message.class)
@@ -101,7 +144,7 @@ public class MessageController extends AbstractHelper<Message> implements java.i
                 return null;
             }
             MessageController controller = (MessageController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "messageCategoryController");
+                    getValue(facesContext.getELContext(), null, "messageController");
             return controller.getMessageById(Integer.valueOf(value));
         }
 

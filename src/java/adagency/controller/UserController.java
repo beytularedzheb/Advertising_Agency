@@ -20,18 +20,19 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpSession;
-import org.apache.commons.configuration.ConfigurationException;
 
 @ManagedBean(name = "userController")
 @SessionScoped
 public class UserController extends AbstractHelper<User> implements java.io.Serializable {
 
     private User loggedUser;
+    private String username;
+    private String password;
 
     public User getLoggedUser() {
         return loggedUser;
     }
-    
+
     @ManagedProperty(value = "#{propController}")
     private PropController propController;
 
@@ -43,6 +44,22 @@ public class UserController extends AbstractHelper<User> implements java.io.Seri
 
     public UserDao getUserDao() {
         return userDao;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public User getUserById(Integer id) {
@@ -122,63 +139,49 @@ public class UserController extends AbstractHelper<User> implements java.io.Seri
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle(Text.BUNDLE_NAME).getString("ErrorOccured"));
+                    FacesContext ctx = FacesContext.getCurrentInstance();
+                    ResourceBundle rb = FacesContext.getCurrentInstance().getApplication().getResourceBundle(ctx, Text.BUNDLE_VAR_NAME);
+
+                    JsfUtil.addErrorMessage(ex, rb.getString("ErrorOccured"));
                 }
             }
         }
     }
 
-    private String username;
-    private String password;
-
     public String login() {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        ResourceBundle rb = FacesContext.getCurrentInstance().getApplication().getResourceBundle(ctx, Text.BUNDLE_VAR_NAME);
+
         if (getUserDao().validate(username, MD5Hashing.getMD5(password))) {
-            
+
             HttpSession session = SessionUtil.getSession();
             session.setAttribute(Global.SESSION_USERNAME, getUsername());
             loggedUser = getUserDao().findUserByUsername(getUsername());
             if (loggedUser == null) {
                 loggedUser = getUserDao().findUserByEmail(getUsername());
             }
-            
+
             this.username = null;
             this.password = null;
-            
-            JsfUtil.addErrorMessage(ResourceBundle.getBundle(Text.BUNDLE_NAME).getString("Welcome") + " " + loggedUser.getUsername());
-        }
-        else {
-            JsfUtil.addErrorMessage(ResourceBundle.getBundle(Text.BUNDLE_NAME).getString("InvalidUsernameOrPassword"));
+
+            JsfUtil.addErrorMessage(rb.getString("Welcome") + " " + loggedUser.getUsername());
+        } else {
+            JsfUtil.addErrorMessage(rb.getString("InvalidUsernameOrPassword"));
             return null;
         }
-        
-        if (loggedUser != null) {            
+
+        if (loggedUser != null) {
             return Global.ADMIN_DEFAULT_PAGE + "?faces-redirect=true";
         }
         return Global.ADMIN_LOGIN_PAGE + "?faces-redirect=true";
     }
-    
+
     public String logout() {
         HttpSession session = SessionUtil.getSession();
         session.invalidate();
         loggedUser = null;
-        
+
         return Global.ADMIN_LOGIN_PAGE + "?faces-redirect=true";
-    } 
-
-    public String getUsername() {
-        return username;
-    }
-    
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @FacesConverter(forClass = User.class)
@@ -221,7 +224,7 @@ public class UserController extends AbstractHelper<User> implements java.io.Seri
         return firstName;
     }
 
-    public void setFirstName(String firstName) throws ConfigurationException {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -232,7 +235,7 @@ public class UserController extends AbstractHelper<User> implements java.io.Seri
         return lastName;
     }
 
-    public void setLastName(String lastName) throws ConfigurationException {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -243,7 +246,7 @@ public class UserController extends AbstractHelper<User> implements java.io.Seri
         return address;
     }
 
-    public void setAddress(String address) throws ConfigurationException {
+    public void setAddress(String address) {
         this.address = address;
     }
     /*------------------------------------------------------------------------*/

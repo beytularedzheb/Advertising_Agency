@@ -26,7 +26,7 @@
                                         <div class="carousel-content">
                                             <h1 class="animation animated-item-1">#{msg.SliderFirstHeader1}</h1>
                                             <h2 class="animation animated-item-2">#{msg.SliderFirstHeader2}</h2>
-                                            <a class="btn-slide animation animated-item-3" href="#">#{msg.ViewMore}</a>
+                                            <a class="btn-slide animation animated-item-3" href="service-categories.xhtml">#{msg.ViewMore}</a>
                                         </div>
                                     </div>
 
@@ -141,18 +141,16 @@
             <section id="partner">
                 <div class="container">
                     <div class="center wow fadeInDown">
-                        <h2>#{msg.OurCustomers}</h2>
+                        <h2 style="text-shadow:4px 4px 10px rgba(0,0,0,.5);">#{msg.OurCustomers}</h2>
                     </div>
 
                     <div class="partners">
                         <ul>
                             <ui:repeat var="customer" value="#{customerController.items}" varStatus="customerStatus">
-                                <li>
+                                <li class=" wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="#{(customerStatus.index + 1) * 300}ms">
                                     <a href="#{customer.webAddress}">
-                                        <img class="img-responsive wow fadeInDown" 
-                                             data-wow-duration="1000ms" 
-                                             data-wow-delay="#{(customerStatus.index + 1) * 300}ms" 
-                                             src="#{customer.logoPath}"/>
+                                        <img class="img-responsive" src="#{customer.logoPath}"/>
+                                        <h1 style="border-radius: 20em;background-color: rgba(255,255,255,.1);text-shadow:1px 1px 2px rgba(0,0,0,.5); display: #{empty customer.logoPath ? 'block' : 'none'}">#{propController.getValueByCurrentLang(customer.nameKey)}</h1>
                                     </a>
                                 </li>
                             </ui:repeat>

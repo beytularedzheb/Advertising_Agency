@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import org.apache.commons.configuration.ConfigurationException;
+import javax.faces.context.FacesContext;
 
 @ManagedBean(name = "employeeController")
 @SessionScoped
@@ -107,7 +107,9 @@ public class EmployeeController extends AbstractHelper<Employee> implements java
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle(Text.BUNDLE_NAME).getString("ErrorOccured"));
+                    FacesContext ctx = FacesContext.getCurrentInstance();
+                    ResourceBundle rb = FacesContext.getCurrentInstance().getApplication().getResourceBundle(ctx, Text.BUNDLE_VAR_NAME);
+                    JsfUtil.addErrorMessage(ex, rb.getString("ErrorOccured"));
                 }
             }
         }
@@ -126,7 +128,7 @@ public class EmployeeController extends AbstractHelper<Employee> implements java
         return firstName;
     }
 
-    public void setFirstName(String firstName) throws ConfigurationException {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -137,7 +139,7 @@ public class EmployeeController extends AbstractHelper<Employee> implements java
         return lastName;
     }
 
-    public void setLastName(String lastName) throws ConfigurationException {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -148,7 +150,7 @@ public class EmployeeController extends AbstractHelper<Employee> implements java
         return jobTitle;
     }
 
-    public void setJobTitle(String jobTitle) throws ConfigurationException {
+    public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
     }
 
@@ -160,7 +162,7 @@ public class EmployeeController extends AbstractHelper<Employee> implements java
         return description;
     }
 
-    public void setDescription(String description) throws ConfigurationException {
+    public void setDescription(String description) {
         this.description = description;
     }
     /*------------------------------------------------------------------------*/

@@ -40,7 +40,6 @@ public class AuthorizationFilter implements Filter {
                 response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
                 response.setDateHeader("Expires", 0); // Proxies.
             }
-
             chain.doFilter(request, response); // So, just continue request.
         }
         else if (ajaxRequest) {

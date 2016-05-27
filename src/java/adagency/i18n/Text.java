@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 public class Text extends ResourceBundle {
 
     public static final String BUNDLE_NAME = "adagency.i18n.text";
+    public static final String BUNDLE_VAR_NAME = "msg";
     protected static final String BUNDLE_EXTENSION = "properties";
     protected static final Control UTF8_CONTROL = new UTF8Control();
 

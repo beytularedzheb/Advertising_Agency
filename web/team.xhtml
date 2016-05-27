@@ -28,7 +28,7 @@
                                         data-wow-delay="300ms">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="media-object" src="#{employee.picturePath}" alt=""/>
+                                                <img class="img-responsive media-object" src="#{empty employee.picturePath ? 'resources/images/avatar.png' : employee.picturePath }" alt=""/>
                                             </div>
                                             <div class="media-body">
                                                 <h4>#{propController.getValueByCurrentLang(employee.firstNameKey)} #{propController.getValueByCurrentLang(employee.lastNameKey)}</h4>

@@ -16,12 +16,16 @@
                         <h:outputText value="#{messageController.selected.messageId}" title="#{msg.ID}"/>
                         <h:outputText value="#{msg.RepliedByUser}"/>
                         <h:outputText value="#{messageController.selected.user}" title="#{msg.RepliedByUser}"/>
+                        <h:outputText value="#{msg.Subject}"/>
+                        <h:outputText value="#{messageController.selected.subject}" title="#{msg.Subject}"/>
                         <h:outputText value="#{msg.Message}"/>
                         <h:outputText value="#{messageController.selected.content}" title="#{msg.Message}"/>
                         <h:outputText value="#{msg.Sender}"/>
                         <h:outputText value="#{messageController.selected.senderEmail}" title="#{msg.Sender}"/>
-                        <h:outputText value="#{msg.IsReplied}"/>
-                        <p:selectBooleanCheckbox value="#{messageController.selected.replied}" disabled="true"/>
+                        <h:outputText value="#{msg.Email}"/>
+                        <h:outputText value="#{messageController.selected.senderEmail}" title="#{msg.Email}"/>
+                        <h:outputText value="#{msg.Phone}"/>
+                        <h:outputText value="#{messageController.selected.senderPhone}" title="#{msg.Phone}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{msg.Close}" onclick="MessageViewDialog.hide()"/>
                 </h:panelGroup>

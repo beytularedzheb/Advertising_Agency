@@ -8,7 +8,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-public abstract class AbstractDao<T, PK extends Serializable> implements Serializable {
+public abstract class AbstractDao<T, PK extends Serializable> {
 
     private final Class<T> entityClass;
     protected final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();

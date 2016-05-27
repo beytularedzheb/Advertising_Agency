@@ -37,9 +37,6 @@
         </h:head>
 
         <h:body>
-
-            <p:growl id="growl" life="3500" autoUpdate="true" showDetail="true" />
-
             <header id="header">
                 <div class="top-bar">
                     <div class="container">
@@ -88,7 +85,7 @@
                                     </ul>
                                 </li>
                                 <li><a href="team.xhtml">#{msg.OurTeam}</a></li>
-                                <li><a href="contact-us.xhtml">#{msg.ContactUs}</a></li>
+                                <li><a href="contact-us.xhtml" onclick="#{messageController}">#{msg.ContactUs}</a></li>
                             </ul>
                         </div>
                     </div><!--/.container-->
@@ -97,7 +94,7 @@
             </header><!--/header-->
 
             <ui:insert name="body"/>
-
+            
             <section id="bottom" class="hidden-xs">
                 <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                     <div class="row">

@@ -20,8 +20,6 @@
                                            itemLabel="#{userItem.username}"
                                            itemValue="#{userItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{msg.IsReplied}" for="replied" />
-                        <p:selectBooleanCheckbox id="replied" value="#{messageController.selected.replied}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{messageController.update}" value="#{msg.Save}" update="display,:MessageListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MessageEditDialog');"/>
                     <p:commandButton value="#{msg.Cancel}" onclick="MessageEditDialog.hide()"/>

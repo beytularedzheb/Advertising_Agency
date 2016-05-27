@@ -16,20 +16,19 @@
                     <div class="center">
                         <h2>#{msg.Portfolio}</h2>                        
                     </div>
-
                     <ul class="portfolio-filter text-center">
                         <li><a class="btn btn-default active" href="#" data-filter="*">#{msg.AllWorks}</a></li>
-                    <ui:repeat var="projectType" value="#{projectTypeController.items}">
-                        <li><a class="btn btn-default" href="#" data-filter=".#{projectType.projectTypeCode}">#{propController.getValueByCurrentLang(projectType.projectTypeTextKey)}</a></li>
-                    </ui:repeat>    
+                        <ui:repeat var="projectType" value="#{projectTypeController.items}">
+                            <li><a class="btn btn-default" href="#" data-filter=".#{projectType.projectTypeCode}">#{propController.getValueByCurrentLang(projectType.projectTypeTextKey)}</a></li>
+                        </ui:repeat>    
                     </ul><!--/#portfolio-filter-->
 
-                <ui:repeat var="project" value="#{projectController.items}">
+                    <div class="row portfolio-items">
 
-                    <div class="row">
-                        <div class="portfolio-items">
+                        <ui:repeat var="project" value="#{projectController.items}">
+
                             <div class="portfolio-item #{project.projectType.projectTypeCode} col-xs-12 col-sm-4 col-md-3">
-                                <div class="recent-work-wrap">
+                                <div class="recent-work-wrap" style="min-height: 16em;">
                                     <img class="img-responsive" src="#{project.imagePath}" alt=""/>
                                     <div class="overlay">
                                         <div class="recent-work-inner">
@@ -40,10 +39,10 @@
                                     </div>
                                 </div>
                             </div><!--/.portfolio-item-->
-                        </div>
-                    </div>
 
-                </ui:repeat>
+                        </ui:repeat>
+
+                    </div>
                 </div>
             </section><!--/#portfolio-item-->
 

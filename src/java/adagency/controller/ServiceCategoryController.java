@@ -17,7 +17,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import org.apache.commons.configuration.ConfigurationException;
 
 @ManagedBean(name = "serviceCategoryController")
 @SessionScoped
@@ -106,7 +105,9 @@ public class ServiceCategoryController extends AbstractHelper<ServiceCategory> i
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle(Text.BUNDLE_NAME).getString("ErrorOccured"));
+                    FacesContext ctx = FacesContext.getCurrentInstance();
+                    ResourceBundle rb = FacesContext.getCurrentInstance().getApplication().getResourceBundle(ctx, Text.BUNDLE_VAR_NAME);
+                    JsfUtil.addErrorMessage(ex, rb.getString("ErrorOccured"));
                 }
             }
         }
@@ -157,7 +158,7 @@ public class ServiceCategoryController extends AbstractHelper<ServiceCategory> i
         return name;
     }
 
-    public void setName(String name) throws ConfigurationException {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -169,7 +170,7 @@ public class ServiceCategoryController extends AbstractHelper<ServiceCategory> i
         return description;
     }
 
-    public void setDescription(String description) throws ConfigurationException {
+    public void setDescription(String description) {
         this.description = description;
     }
     /*------------------------------------------------------------------------*/

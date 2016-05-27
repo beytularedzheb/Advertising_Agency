@@ -38,7 +38,7 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <p:column sortBy="#{item.projectId}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.ID}"/>
                             </f:facet>
@@ -50,7 +50,7 @@
                             </f:facet>
                             <h:outputText value="#{propController.getValueByCurrentLang(item.customer.nameKey)}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.projectType.projectTypeCode}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.ProjectType}"/>
                             </f:facet>
@@ -68,7 +68,7 @@
                             </f:facet>
                             <h:outputText value="#{item.descriptionKey}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.imagePath}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.Image}"/>
                             </f:facet>

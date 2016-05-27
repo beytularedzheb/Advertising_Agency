@@ -40,7 +40,7 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <p:column sortBy="#{item.serviceCategoryId}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.ID}"/>
                             </f:facet>
@@ -52,7 +52,7 @@
                             </f:facet>
                             <h:outputText value="#{propController.getValueByCurrentLang(item.nameKey)}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.serviceCategoryId}">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.Description}*"/>
                             </f:facet>

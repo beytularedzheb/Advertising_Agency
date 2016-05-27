@@ -16,7 +16,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import org.apache.commons.configuration.ConfigurationException;
 
 @ManagedBean(name = "projectTypeController")
 @SessionScoped
@@ -24,6 +23,10 @@ public class ProjectTypeController extends AbstractHelper<ProjectType> implement
 
     @ManagedProperty(value = "#{propController}")
     private PropController propController;
+    
+    @ManagedProperty(value = "#{projectController}")
+    private ProjectController projectController;
+
     private final ProjectTypeDao projectTypeDao = new ProjectTypeDao();
 
     public void setPropController(PropController propController) {
@@ -37,7 +40,11 @@ public class ProjectTypeController extends AbstractHelper<ProjectType> implement
     public ProjectType getProjectTypeById(Integer id) {
         return getProjectTypeDao().find(id);
     }
-
+    
+    public void setProjectController(ProjectController projectController) {
+        this.projectController = projectController;
+    }
+    
     @Override
     public List<ProjectType> getItems() {
         if (items == null) {
@@ -64,7 +71,6 @@ public class ProjectTypeController extends AbstractHelper<ProjectType> implement
 
     @Override
     public void persist(JsfUtil.PersistAction persistAction, String successMessage) {
-        boolean triggerUpdate = false;
 
         if (getSelected() != null) {
             try {
@@ -79,19 +85,17 @@ public class ProjectTypeController extends AbstractHelper<ProjectType> implement
                     case UPDATE:
                         if (shouldUpdate(projectTypeText, getSelected().getProjectTypeTextKey())) {
                             getSelected().setProjectTypeTextKey(generateKey("projectTypeText", getSelected().getProjectTypeId().toString()));
-                            triggerUpdate = true;
                         }
 
                         propController.addPropertyBySelectedLang(getSelected().getProjectTypeTextKey(), projectTypeText);
 
-                        if (triggerUpdate) {
-                            getProjectTypeDao().update(getSelected());
-                        }
-
+                        getProjectTypeDao().update(getSelected());
+                        projectController.reloadItems();
                         break;
                     case DELETE:
                         propController.removeProperty(getSelected().getProjectTypeTextKey());
                         getProjectTypeDao().delete(getSelected());
+                        projectController.reloadItems();
                         break;
                 }
                 JsfUtil.addSuccessMessage(successMessage);
@@ -104,11 +108,14 @@ public class ProjectTypeController extends AbstractHelper<ProjectType> implement
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle(Text.BUNDLE_NAME).getString("ErrorOccured"));
+                    FacesContext ctx = FacesContext.getCurrentInstance();
+                    ResourceBundle rb = FacesContext.getCurrentInstance().getApplication().getResourceBundle(ctx, Text.BUNDLE_VAR_NAME);
+                    JsfUtil.addErrorMessage(ex, rb.getString("ErrorOccured"));
                 }
             }
         }
     }
+
     @FacesConverter(forClass = ProjectType.class)
     public static class ProjectTypeControllerConverter implements Converter {
 
@@ -136,7 +143,7 @@ public class ProjectTypeController extends AbstractHelper<ProjectType> implement
             }
         }
     }
-    
+
     /*------------------------------------------------------------------------*/
     private String projectTypeText;
 
